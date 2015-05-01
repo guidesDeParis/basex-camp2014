@@ -2,19 +2,18 @@
 
 ## Introduction sur la compagnie
 
-Christian rappelle qu'il a débuté il y a neuf ans à produit à l'université avec les étudiants des classes java, utilisation xquery. Plus en plus de demande et de service commerciale, raison pour laquelle mis sur pied une entreprise. Michael, Lucas, Luke, projet mis en œuvre il y a deux ou trois ans.  3 personnes plein temps, 3 personnes temps partiel. La pluspart ayant réalisés des travaux universiataires sur le projet BaseX.
+Christian rappelle qu'il a débuté il y a neuf ans à produit à l'université avec les étudiants des classes java, utilisation xquery. Plus en plus de demande et de service commerciaux, raison pour laquelle ils ont mis sur pied une entreprise. Ce projet fut d'abord mis en œuvre avec Michael, Lucas, et Luke il y a deux ou trois ans. Actuellement la société BaseX GmbH emploie trois personnes à plein temps et trois personnes à temps partiel, la pluspart des salariés ayant réalisé précédemment des travaux de recherche universitaire sur le projet BaseX.
 
-Ils ont d'abord pu profiter d'un dispositif permettant de constituer une université à partir d'un projet universitaire. Bien fonctionné la première année, ensuite constitué une société. Premier client grand éditeur. Construction d'applications web personnelles ou entreprises dans le domaine de l'édition.  Nombreux clients en Allemagne, mais rapidement aussi en Australie. Airbus, puis Canada, EU. Pas forcément un grand marché pour les bases de données, XML est beaucoup utilisé mais les gens ne connaissent pas toujours les langages ou les outils. Cependant très surpris du niveau de connaissance de XML dans le domaine de l'édition allemande.
+BaseX GmbH a d'abord pu profiter d'un dispositif permettant de constituer une entreprise à partir d'un projet universitaire. Cela a bien fonctionné la première année, puis il a ensuite été possible de constituer une société. Leur premier client a été un grand éditeur allemand. Depuis, la société s'est chargé de la construction de diverses applications web personnelles ou d'entreprises dans le domaine de l'édition. Elle dispose de nombreux clients en Allemagne, mais rapidement aussi en Europe avec Airbus, ou sur d'autres continents en Australie, ou au Canada. Toutefois, le marché n'est pas nécessairement très important pour les bases de données XML natives, si les technologies XML sont beaucoup employées, les utilisateurs ne connaissent pas toujours les langages ou les outils dédiés. Cependant ils ont été très surpris du niveau de connaissance de XML dans le domaine de l'édition en Allemagne.
 
-Un gros projet où utilisent JSON et AngularJS, avec XML en arrière. Utilise des conversions. Mais aussi une couche supplémentaire pour valider les données. Pas de mapping standardisé avec JSON, un format fixe.
+Pour aborder l'organisation des projets qu'ils mettent en œuvre, Christian propose de nous présenter la structure d'un gros projet où ils utilisent JSON et AngularJS, avec des conversions réalisées à partir de XML en arrière-plan. Outre ces conversions, il y a également une couche supplémentaire pour valider les données. Il n'existe pas de mapping standardisé avec JSON, un format fixe.
 
-Pas de connaissance de JSON-LD http://json-ld.org
+Question sur JSON-LD http://json-ld.org, pas connaissance.
 
 
 ## Organisation des projets
 
-Pas de structure stable, varie en fonction des projets. Soit XForms, soit AngularJS
-De plus en plus AngularJS car si XForms attrayant, certaines choses élémentaires plus simples à faire avec AngularJS (comme messages de formulaire).  On confère habituellement la présentation au client. Côté serveur, traite plutôt les services REST.
+L'équipe de BaseX n'emploie pas de structure fixe pour l'ensemble des projets, leur organisation varie en fonction de leur nature. Dans certains cas, elle utilise XForms, dans d'autres AngularJS. Mais de plus en plus, l'équipe a recourt à AngularJS, car si XForms est un projet attrayant, certaines choses élémentaires sont plus simples à réaliser avec AngularJS (comme pour les messages de formulaires). On confère alors habituellement la présentation au client, et côté serveur on traite plutôt les services REST.
 
 Xforms used to prepare Html forms to the server
 
@@ -22,11 +21,13 @@ New logic =>
 * Server side mostly for REST, data is prepared
 * Client is for presentation with javascript
 
-Application Klett-rt
-Éditeurs qui doivent gérer une base iconographique avec les crédits et informations de copyrights. Des millions d'entrées à administrer.
-Affichage d'une notice d'image, avec formulaire, tout est réalisé en AngularJS avec Bootstrap pour le design.
+## Exemple de l'application Klett-rt
 
-L'application permet de sélectionner une image pour un livre donnée. Information sur l'usage de l'image, crédits, etc. Chaque référence peut contenir des crédits à plusieurs société d'auteurs différentes, il peut y avoir plusieurs bénéficiaires pour une image.
+Un éditeur qui doit gérer une base iconographique importante avec des informations concernant les crédits et les copyrights : des millions d'entrées à administrer.
+
+Affichage d'une notice d'image, avec formulaire : tout est réalisé en AngularJS avec Bootstrap pour le design.
+
+L'application permet de sélectionner une image pour un livre donné. La vue de cet item présente des informations sur l'usage de l'image, les crédits, etc. Chaque référence peut contenir des crédits relatifs plusieurs sociétés d'auteurs différentes, il peut y avoir plusieurs bénéficiaires pour une image...
 
 Différentes vues d'index (créditeurs, images)
 Les données sont affichées en JSON
@@ -34,20 +35,23 @@ meta, data
 
 Changing data model is possible with AngularJS
 
-restxq
-Quelque chose comme un point d'entrée pour les requêtes HTTP du serveur. Cela permet d'associer des fonctions ressources à des URI.
+Restxq permet la création de l'équivalent de points d'entrée dans l'application pour les requêtes HTTP du serveur. Cela permet d'associer des fonctions ressources à des URI.
 
-un `fichier.xqm` qui traite le restxq basique
-L'ensemble du code des fonctions appellées dans RESTXQ est stocké dans `repo`
+Un `fichier.xqm` qui traite le RESTXQ basique.
+L'ensemble du code des fonctions appellées par les fonctions ressources RESTXQ est stocké dans `repo`
 
-Les données sont stockées en XML, chaque entrée dispose d'un élément meta avec un identifiant.
+Les données sont stockées en XML, et chaque entrée dispose d'un élément meta avec un identifiant.
 
 
-Deux bases :
-    - une pour l'interrogation (avec tous les index, permette la recherche full-text)
-    - une pour les nouvelles entrées
+## Utilisation incrémentielle de deux bases de données
 
-Une approche incrémentielle, deux bases de données. Une avec les bases de données de stock, et l'autre avec les données de travail (nécessaires car des millions de données, sur lesquelles devait faire des recherche plein texte, etc. probablement 30 utilisateurs). Chaque soir, les bases sont mergées.
+Une des particularités du projet et liée à la présence de deux bases de données. Une approche incrémentielle a été mise en place avec deux bases de données. La première est destinée aux données de stock, et l'autre aux données de travail :
+ - la première base sert pour l'interrogation (avec tous les index, pour permette la recherche full-text)
+ - la seconde s'occupe des nouvelles entrées
+
+Un tel choix a paru nécessaire car il y avait des millions de données à gérer, sur lesquelles on devait pouvoir conduire des recherche plein texte, etc. et qu'il devait y avoir probablement 30 utilisateurs de saisie.
+
+Chaque soir, les deux bases de données sont mergées. :
 
 fonction data:get
 
@@ -72,18 +76,24 @@ Réunion dans une même fonction complexe de plusieurs traitements pour simplifi
 Possibilités de produire des fonctions complexes de cette sorte qui explique probablement.
 
 
-Si écrit des scripts simples, peut les nommer .xq
-Tout est module, des modules de bibliothèques et des modules.
-Des modules de bib ne peuvent pas être exécutés.
+## Distinction .xqm et .xq
 
-Chaque processeur utilise sa propre terminologie. Cf. livre eXist O'Reilly Adam Retter, décidé d'utiliser la même terminologie.
+Lorsque l'on écrit des scripts simples, on peut leur donner l'extension `.xq`. Si dans le principe tout est module, le standard XQuery distingue les modules de bibliothèque et les modules principaux (`main`). Les modules de bibliothèque ne peuvent pas être évalués directement, en revanche ils fournissent des fonctions  et des déclarations de variables qui peuvent être importées dans d'autres modules.
 
-xqm pour les modules qui font appellent à l'autres.
-xq pour les points d'entrées.
+Le standard XQuery ne définissant pas d'extension, chaque processeur utilise ses propres extensions (.xquery, .xql, .xqy, etc.). Dans son ouvrage récent sur eXist publié chez O'Reilly, Adam Retter a décidé d'utiliser la même terminologie que BaseX (http://www.stylusstudio.com/xquerytalk/201301/004033.html)
 
-xqm seront généralement destinés à contenir des fonctions, les scripts porteront habituellement l'extension xq.
+Dans BaseX, on emploie les conventions suivantes pour l'extension :
+- xq pour les modules principaux ('main')
+- .xqm pour les modules qui font appel à d'autres modules y compris RESTXQ (modules de bibliothèque)
 
-Le code de l'application est déployé avec maaven. Ici les différents répertoires sont compris dans un répertoire global pour l'application qui contient `public`, `repo`, `webapp` puis déclarés dans ".basex".
+Les fichiers avec l'extension `.xqm` seront généralement destinés à contenir des fonctions, les scripts porteront habituellement l'extension `.xq`.
+
+
+## Déployement
+
+Le code de l'application qui nous est présentée est déployé avec [Maven](http://maven.apache.org).
+
+Ici les différents répertoires sont compris dans un répertoire global pour l'application qui contient `public`, `repo`, `webapp` puis déclarés dans ".basex".
 Les données sont stockées séparéemment des données web.
 
 application
